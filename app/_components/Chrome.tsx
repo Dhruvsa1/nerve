@@ -11,16 +11,18 @@ interface CrisisResource {
   region: string | null
 }
 
-/** The NERVE wordmark + a steady amber signal dot. */
+/** The NERVE wordmark — a radio callsign in mono + a steady amber signal dot. */
 export function Wordmark({ size = 'base' }: { size?: 'base' | 'sm' }) {
   return (
-    <Link href="/" className="flex items-center gap-2.5" aria-label="NERVE home">
+    <Link href="/" className="group flex items-center gap-2.5" aria-label="NERVE home">
       <span className="relative flex h-2.5 w-2.5">
         <span className="absolute inline-flex h-full w-full rounded-full bg-amber/40 dot" />
-        <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-amber" />
+        <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-amber shadow-[0_0_10px_var(--amber)]" />
       </span>
       <span
-        className={`font-display tracking-[0.22em] ${size === 'sm' ? 'text-base' : 'text-lg'}`}
+        className={`tnum font-medium tracking-[0.34em] text-text transition group-hover:text-amber ${
+          size === 'sm' ? 'text-sm' : 'text-base'
+        }`}
       >
         NERVE
       </span>
@@ -30,7 +32,7 @@ export function Wordmark({ size = 'base' }: { size?: 'base' | 'sm' }) {
 
 export function Header({ right }: { right?: React.ReactNode }) {
   return (
-    <header className="rise flex items-center justify-between px-5 py-4 md:px-8">
+    <header className="rise sticky top-0 z-30 flex items-center justify-between border-b border-edge-soft/60 px-5 py-4 backdrop-blur-md md:px-8">
       <Wordmark />
       <div className="flex items-center gap-4">
         {right}
@@ -63,7 +65,7 @@ export function CrisisLink() {
   return (
     <button
       onClick={() => window.dispatchEvent(new Event('nerve:open-crisis'))}
-      className="rounded-full border border-crisis/30 px-3 py-1 text-xs font-medium text-crisis/90 transition hover:border-crisis/60 hover:bg-crisis/10"
+      className="press rounded-full border border-crisis/30 bg-crisis/5 px-3.5 py-1.5 text-xs font-medium text-crisis/90 hover:border-crisis/60 hover:bg-crisis/10"
     >
       Need support now
     </button>
@@ -106,7 +108,7 @@ export function CrisisSheet() {
       aria-label="Crisis resources"
     >
       <div
-        className="rise w-full max-w-md rounded-2xl border border-crisis/25 bg-panel p-6 shadow-[0_-8px_60px_rgba(240,112,95,0.12)]"
+        className="rise glass w-full max-w-md rounded-2xl border border-crisis/25 p-6 shadow-[0_-8px_70px_rgba(244,122,104,0.16)]"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-start justify-between">
@@ -133,7 +135,7 @@ export function CrisisSheet() {
                 href={r.url ?? '#'}
                 target="_blank"
                 rel="noreferrer"
-                className="block rounded-xl border border-edge bg-panel-2 p-4 transition hover:border-crisis/40"
+                className="lift block rounded-xl border border-edge glass-2 p-4 hover:border-crisis/40"
               >
                 <div className="flex items-center justify-between">
                   <span className="font-medium text-text">{r.label}</span>

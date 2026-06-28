@@ -36,7 +36,10 @@ export function SudsSlider({
         <label htmlFor={id} className="text-sm text-text-soft">
           {label}
         </label>
-        <span className="tnum text-3xl leading-none" style={{ color: accent }}>
+        <span
+          className="tnum text-4xl leading-none tabular-nums"
+          style={{ color: accent, textShadow: `0 0 28px ${accent}66` }}
+        >
           {value}
         </span>
       </div>

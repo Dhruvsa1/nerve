@@ -49,12 +49,12 @@ export default function LedgerPage() {
       <main className="mx-auto w-full max-w-3xl flex-1 px-5 py-8 md:px-8 md:py-12">
         <div className="rise flex items-end justify-between">
           <div>
-            <p className="text-xs uppercase tracking-[0.3em] text-amber">courage ledger</p>
-            <h1 className="mt-2 font-display text-4xl">The evidence so far</h1>
+            <p className="text-xs uppercase tracking-[0.32em] text-amber">courage ledger</p>
+            <h1 className="mt-2 font-display text-4xl md:text-5xl">The evidence so far</h1>
           </div>
           <Link
             href="/mission"
-            className="rounded-xl bg-amber px-5 py-2.5 text-sm font-medium text-ground transition hover:bg-amber-deep"
+            className="press rounded-xl bg-amber px-5 py-2.5 text-sm font-semibold text-ground shadow-[0_10px_40px_-14px_var(--amber)] hover:bg-amber-deep"
           >
             New mission →
           </Link>
@@ -74,15 +74,15 @@ export default function LedgerPage() {
         )}
 
         {stats && stats.totalMissions === 0 && (
-          <div className="rise mt-10 rounded-2xl border border-edge bg-panel/80 p-8 text-center">
-            <h2 className="font-display text-2xl">Your ledger is waiting for its first entry</h2>
-            <p className="mt-2 text-text-soft">
+          <div className="rise mt-10 glass rounded-2xl border border-edge p-8 text-center shadow-[0_30px_80px_-46px_rgba(0,0,0,0.9)]">
+            <h2 className="font-display text-2xl md:text-3xl">Your ledger is waiting for its first entry</h2>
+            <p className="handler mt-3 text-lg text-text-soft">
               Every mission you attempt — even the ones you retreat from — gets logged here as
               proof. Let&apos;s get the first one.
             </p>
             <Link
               href="/mission"
-              className="mt-6 inline-block rounded-xl bg-amber px-6 py-3 font-medium text-ground hover:bg-amber-deep"
+              className="press mt-6 inline-block rounded-xl bg-amber px-6 py-3 font-semibold text-ground shadow-[0_10px_40px_-12px_var(--amber)] hover:bg-amber-deep"
             >
               Get my first mission →
             </Link>
@@ -101,7 +101,7 @@ export default function LedgerPage() {
 
             {/* the therapeutic payload */}
             <div
-              className="rise mt-4 rounded-2xl border border-teal/25 bg-teal/[0.06] p-6"
+              className="rise mt-4 rounded-2xl border border-teal/25 bg-teal/[0.06] p-6 backdrop-blur-md"
               style={{ animationDelay: '80ms' }}
             >
               <p className="text-[11px] uppercase tracking-[0.18em] text-teal">the evidence</p>
@@ -132,7 +132,7 @@ export default function LedgerPage() {
 
             {/* predicted vs actual chart */}
             <div
-              className="rise mt-4 rounded-2xl border border-edge bg-panel/80 p-6"
+              className="rise mt-4 glass rounded-2xl border border-edge p-6"
               style={{ animationDelay: '160ms' }}
             >
               <div className="flex items-center justify-between">
@@ -173,8 +173,8 @@ function Card({
   const color =
     tone === 'amber' ? 'var(--amber)' : tone === 'teal' ? 'var(--teal)' : 'var(--text)'
   return (
-    <div className="rounded-2xl border border-edge bg-panel-2 p-4">
-      <p className="tnum text-3xl" style={{ color }}>
+    <div className="lift glass-2 rounded-2xl border border-edge p-4">
+      <p className="tnum text-3xl" style={{ color, textShadow: `0 0 24px ${color}55` }}>
         {value}
       </p>
       <p className="mt-1 text-xs text-text-faint">{label}</p>
@@ -218,6 +218,15 @@ function Chart({ series }: { series: PredictionPoint[] }) {
 
   return (
     <svg viewBox={`0 0 ${W} ${H}`} className="mt-4 w-full" role="img" aria-label="Predicted vs actual distress over time">
+      <defs>
+        <filter id="glowAmber" x="-20%" y="-20%" width="140%" height="140%">
+          <feDropShadow dx="0" dy="0" stdDeviation="3" floodColor="var(--amber)" floodOpacity="0.55" />
+        </filter>
+        <filter id="glowTeal" x="-20%" y="-20%" width="140%" height="140%">
+          <feDropShadow dx="0" dy="0" stdDeviation="3" floodColor="var(--teal)" floodOpacity="0.6" />
+        </filter>
+      </defs>
+
       {/* target band 40–60 */}
       <rect
         x={padX}
@@ -234,20 +243,20 @@ function Chart({ series }: { series: PredictionPoint[] }) {
 
       {/* predicted line */}
       {pred.length > 1 && (
-        <polyline points={pred.join(' ')} fill="none" stroke="var(--amber)" strokeWidth="2" opacity="0.9" />
+        <polyline points={pred.join(' ')} fill="none" stroke="var(--amber)" strokeWidth="2" opacity="0.9" filter="url(#glowAmber)" />
       )}
       {/* actual line */}
       {act.length > 1 && (
-        <polyline points={act.join(' ')} fill="none" stroke="var(--teal)" strokeWidth="2" />
+        <polyline points={act.join(' ')} fill="none" stroke="var(--teal)" strokeWidth="2.25" filter="url(#glowTeal)" />
       )}
 
       {/* points */}
       {series.map((p, i) => (
         <g key={p.mission_id}>
           {p.predicted != null && (
-            <circle cx={x(i)} cy={y(p.predicted)} r="3.5" fill="var(--amber)" />
+            <circle cx={x(i)} cy={y(p.predicted)} r="3.5" fill="var(--amber)" filter="url(#glowAmber)" />
           )}
-          <circle cx={x(i)} cy={y(p.actual)} r="3.5" fill="var(--teal)" />
+          <circle cx={x(i)} cy={y(p.actual)} r="3.5" fill="var(--teal)" filter="url(#glowTeal)" />
         </g>
       ))}
     </svg>

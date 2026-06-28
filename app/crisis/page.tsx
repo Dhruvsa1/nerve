@@ -26,11 +26,11 @@ export default function CrisisPage() {
     <>
       <Header />
       <main className="mx-auto w-full max-w-xl flex-1 px-5 py-10 md:px-8 md:py-16">
-        <p className="rise text-xs uppercase tracking-[0.3em] text-crisis">support</p>
-        <h1 className="rise mt-3 font-display text-4xl" style={{ animationDelay: '80ms' }}>
+        <p className="rise text-xs uppercase tracking-[0.32em] text-crisis">support</p>
+        <h1 className="rise mt-3 font-display text-4xl md:text-5xl" style={{ animationDelay: '80ms' }}>
           You don&apos;t have to white-knuckle this alone
         </h1>
-        <p className="rise mt-4 text-text-soft" style={{ animationDelay: '140ms' }}>
+        <p className="rise mt-4 text-lg leading-relaxed text-text-soft" style={{ animationDelay: '140ms' }}>
           NERVE is a self-help practice tool — not therapy or medical advice. If you&apos;re
           thinking about harming yourself or you&apos;re in crisis, reach a trained human now.
           These lines are free and confidential.
@@ -49,7 +49,7 @@ export default function CrisisPage() {
                 href={r.url ?? '#'}
                 target="_blank"
                 rel="noreferrer"
-                className="block rounded-xl border border-edge bg-panel p-5 transition hover:border-crisis/40"
+                className="lift block rounded-xl border border-edge glass p-5 hover:border-crisis/40"
               >
                 <div className="flex items-center justify-between">
                   <span className="font-medium">{r.label}</span>

@@ -279,19 +279,25 @@ function Briefing({
 }) {
   return (
     <div className="rise">
-      <p className="text-xs uppercase tracking-[0.3em] text-amber">your mission</p>
+      <p className="flex items-center gap-2 text-xs uppercase tracking-[0.32em] text-amber">
+        <span className="relative flex h-1.5 w-1.5">
+          <span className="absolute inline-flex h-full w-full rounded-full bg-amber/50 dot" />
+          <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-amber" />
+        </span>
+        your mission
+      </p>
 
-      <div className="mt-4 rounded-2xl border border-edge bg-panel/80 p-6 md:p-8">
-        <h1 className="text-balance font-display text-3xl leading-tight md:text-[2.5rem]">
+      <div className="rise mt-4 glass rounded-2xl border border-edge p-6 shadow-[0_30px_80px_-44px_rgba(0,0,0,0.9)] md:p-8" style={{ animationDelay: '60ms' }}>
+        <h1 className="text-balance font-display text-3xl leading-tight md:text-[2.6rem]">
           {mission.filled_action}
         </h1>
         {handlerLine && (
-          <p className="mt-4 border-l-2 border-amber/50 pl-4 text-text-soft">{handlerLine}</p>
+          <p className="handler mt-5 border-l-2 border-amber/50 pl-4 text-lg text-text-soft">{handlerLine}</p>
         )}
         <DimBars dims={mission.dims} level={mission.level_at_issue} />
       </div>
 
-      <div className="mt-6 rounded-2xl border border-edge bg-panel-2 p-6">
+      <div className="rise mt-6 glass-2 rounded-2xl border border-edge p-6" style={{ animationDelay: '140ms' }}>
         <SudsSlider
           id="predicted"
           label="Before you go — how distressing do you predict this will feel?"
@@ -307,23 +313,23 @@ function Briefing({
         </p>
       )}
 
-      <p className="mt-7 text-center text-sm text-text-soft">
+      <p className="rise mt-7 text-center text-sm text-text-soft" style={{ animationDelay: '200ms' }}>
         Go do it in the real world. Come back and log it — honestly.
       </p>
 
       {/* The two wins, equal weight. */}
-      <div className="mt-4 grid gap-3 sm:grid-cols-2">
+      <div className="rise mt-4 grid gap-3 sm:grid-cols-2" style={{ animationDelay: '260ms' }}>
         <button
           onClick={() => onLog('did_it')}
           disabled={!!busy}
-          className="rounded-xl bg-amber px-5 py-4 text-center font-medium text-ground transition hover:bg-amber-deep disabled:opacity-50"
+          className="press rounded-xl bg-amber px-5 py-4 text-center font-semibold text-ground shadow-[0_12px_44px_-14px_var(--amber)] hover:bg-amber-deep disabled:opacity-50"
         >
           {busy === 'did_it' ? 'Logging…' : 'I did it'}
         </button>
         <button
           onClick={() => onLog('retreated')}
           disabled={!!busy}
-          className="rounded-xl border border-teal/60 bg-teal/10 px-5 py-4 text-center font-medium text-teal transition hover:bg-teal/20 disabled:opacity-50"
+          className="press rounded-xl border border-teal/60 bg-teal/10 px-5 py-4 text-center font-semibold text-teal shadow-[0_12px_44px_-16px_var(--teal)] hover:bg-teal/20 disabled:opacity-50"
         >
           {busy === 'retreated' ? 'Logging…' : 'Attempted & retreated'}
         </button>
@@ -333,18 +339,18 @@ function Briefing({
       </p>
 
       {/* Shrink — deliberately as prominent as a primary action. */}
-      <div className="mt-6 grid gap-3 sm:grid-cols-2">
+      <div className="rise mt-6 grid gap-3 sm:grid-cols-2" style={{ animationDelay: '320ms' }}>
         <button
           onClick={onShrink}
           disabled={!!busy}
-          className="rounded-xl border border-amber/50 px-5 py-4 text-center font-medium text-amber transition hover:bg-amber/10 disabled:opacity-50"
+          className="press rounded-xl border border-amber/50 bg-amber/5 px-5 py-4 text-center font-semibold text-amber hover:bg-amber/10 disabled:opacity-50"
         >
           {busy === 'shrink' ? 'Shrinking…' : 'Make it smaller'}
         </button>
         <button
           onClick={() => onLog('not_yet')}
           disabled={!!busy}
-          className="rounded-xl border border-edge px-5 py-4 text-center font-medium text-text-soft transition hover:border-text-faint hover:text-text disabled:opacity-50"
+          className="press rounded-xl border border-edge px-5 py-4 text-center font-medium text-text-soft hover:border-text-faint hover:text-text disabled:opacity-50"
         >
           {busy === 'not_yet' ? 'Saving…' : 'Not yet'}
         </button>
@@ -427,11 +433,11 @@ function Debrief({
   ]
   return (
     <div className="rise">
-      <p className="text-xs uppercase tracking-[0.3em] text-teal">90-second debrief</p>
-      <h1 className="mt-3 font-display text-3xl">
+      <p className="text-xs uppercase tracking-[0.32em] text-teal">90-second debrief</p>
+      <h1 className="mt-3 font-display text-3xl md:text-4xl">
         {attempted ? 'You did it. Let’s file it.' : 'You showed up to the edge. Let’s file it.'}
       </h1>
-      <p className="mt-2 text-sm text-text-soft">{mission.filled_action}</p>
+      <p className="handler mt-2 text-lg text-text-soft">{mission.filled_action}</p>
 
       <div className="mt-7 space-y-6">
         <Field label="Before you went, what were you afraid would happen?">
@@ -456,7 +462,7 @@ function Debrief({
           />
         </Field>
 
-        <div className="rounded-xl border border-edge bg-panel-2 p-5">
+        <div className="glass-2 rounded-xl border border-edge p-5">
           <SudsSlider
             id="actual"
             label="How distressing did it ACTUALLY feel, at its peak?"
@@ -476,9 +482,9 @@ function Debrief({
                 key={v.key}
                 onClick={() => setVerdict(v.key)}
                 aria-pressed={verdict === v.key}
-                className={`rounded-lg border px-3 py-2.5 text-sm transition ${
+                className={`press rounded-lg border px-3 py-2.5 text-sm ${
                   verdict === v.key
-                    ? 'border-teal bg-teal/15 text-teal'
+                    ? 'border-teal bg-teal/15 text-teal shadow-[0_0_20px_-6px_var(--teal)]'
                     : 'border-edge text-text-soft hover:border-text-faint hover:text-text'
                 }`}
               >
@@ -498,7 +504,7 @@ function Debrief({
       <button
         onClick={onSubmit}
         disabled={busy === 'debrief'}
-        className="mt-7 w-full rounded-xl bg-teal px-6 py-3.5 font-medium text-ground transition hover:bg-teal-deep disabled:opacity-50"
+        className="press mt-7 w-full rounded-xl bg-teal px-6 py-3.5 font-semibold text-ground shadow-[0_12px_44px_-14px_var(--teal)] hover:bg-teal-deep disabled:opacity-50"
       >
         {busy === 'debrief' ? 'Filing the evidence…' : 'File it →'}
       </button>
@@ -536,18 +542,18 @@ function Result({
   const gap = predicted - actual
   return (
     <div className="rise flex flex-1 flex-col">
-      <p className="text-xs uppercase tracking-[0.3em] text-amber">filed</p>
-      <h1 className="mt-3 font-display text-3xl">Logged. That&apos;s a win in the ledger.</h1>
+      <p className="text-xs uppercase tracking-[0.32em] text-amber">filed</p>
+      <h1 className="mt-3 font-display text-3xl md:text-4xl">Logged. That&apos;s a win in the ledger.</h1>
 
       {reflection && (
-        <div className="mt-6 rounded-2xl border border-edge bg-panel/80 p-6">
-          <p className="text-[11px] uppercase tracking-[0.18em] text-text-faint">handler</p>
-          <p className="mt-2 text-lg leading-relaxed">{reflection}</p>
+        <div className="rise mt-6 glass rounded-2xl border border-edge p-6 shadow-[0_30px_80px_-46px_rgba(0,0,0,0.9)]" style={{ animationDelay: '60ms' }}>
+          <p className="text-[11px] uppercase tracking-[0.18em] text-amber">handler</p>
+          <p className="handler mt-2 text-xl leading-relaxed">{reflection}</p>
         </div>
       )}
 
       {wasDebrief && (
-        <div className="mt-5 rounded-2xl border border-edge bg-panel-2 p-6">
+        <div className="rise mt-5 glass-2 rounded-2xl border border-edge p-6" style={{ animationDelay: '140ms' }}>
           <p className="text-[11px] uppercase tracking-[0.18em] text-text-faint">
             predicted vs actual
           </p>
@@ -591,7 +597,7 @@ function Result({
           </p>
           <button
             onClick={() => window.dispatchEvent(new Event('nerve:open-crisis'))}
-            className="mt-3 rounded-lg border border-crisis/50 px-4 py-2 text-sm font-medium text-crisis hover:bg-crisis/15"
+            className="press mt-3 rounded-lg border border-crisis/50 px-4 py-2 text-sm font-medium text-crisis hover:bg-crisis/15"
           >
             Open support resources
           </button>
@@ -601,13 +607,13 @@ function Result({
       <div className="mt-8 flex flex-wrap gap-3">
         <button
           onClick={onNext}
-          className="rounded-xl bg-amber px-6 py-3 font-medium text-ground transition hover:bg-amber-deep"
+          className="press rounded-xl bg-amber px-6 py-3 font-semibold text-ground shadow-[0_10px_40px_-12px_var(--amber)] hover:bg-amber-deep"
         >
           Next mission →
         </button>
         <Link
           href="/ledger"
-          className="rounded-xl border border-edge px-6 py-3 font-medium text-text transition hover:border-teal/50 hover:text-teal"
+          className="press rounded-xl border border-edge glass px-6 py-3 font-medium text-text hover:border-teal/50 hover:text-teal"
         >
           See the evidence
         </Link>

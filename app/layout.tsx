@@ -1,15 +1,25 @@
 import type { Metadata } from 'next'
-import { Familjen_Grotesk, JetBrains_Mono } from 'next/font/google'
+import { Fraunces, Schibsted_Grotesk, JetBrains_Mono } from 'next/font/google'
 import './globals.css'
+import { BgVideo } from './_components/BgVideo'
 
-const familjen = Familjen_Grotesk({
-  variable: '--font-familjen',
+const display = Fraunces({
+  variable: '--font-display',
   subsets: ['latin'],
+  weight: ['400', '500', '600'],
+  style: ['normal', 'italic'],
+})
+
+const body = Schibsted_Grotesk({
+  variable: '--font-body',
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
 })
 
 const mono = JetBrains_Mono({
   variable: '--font-mono',
   subsets: ['latin'],
+  weight: ['400', '500', '600'],
 })
 
 export const metadata: Metadata = {
@@ -22,8 +32,14 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${familjen.variable} ${mono.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html
+      lang="en"
+      className={`${display.variable} ${body.variable} ${mono.variable} h-full antialiased`}
+    >
+      <body className="min-h-full flex flex-col">
+        <BgVideo />
+        {children}
+      </body>
     </html>
   )
 }
